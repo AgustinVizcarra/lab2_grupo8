@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Inventario</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+</head>
+<body class="container">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse">
+        <a class="navbar-brand" th:href="@{/inventario/lista}">Inventario</a>
+        <a class="navbar-brand" th:href="@{/marca/lista}">Marcas</a>
+        <a class="navbar-brand" th:href="@{/tipo/lista}">Tipos de Equipo</a>
+        <a class="navbar-brand" th:href="@{/sede/lista}">Sedes</a>
+        <a class="navbar-brand" th:href="@{/trabajador/lista}">Trabajadores</a>
+    </div>
+</nav>
+<h2>Lista de Proyectos</h2>
+<a class="btn btn-success mt-4 mb-4" th:href="@{/inventario/nuevo}">Nuevo Inventario</a>
+<div th:if="${msgSave != null}" th:text="${msgSave}" class="alert alert-success" role="alert"></div>
+<div th:if="${msgEdit != null}" th:text="${msgEdit}" class="alert alert-warning" role="alert"></div>
+<div th:if="${msgDelete != null}" th:text="${msgDelete}" class="alert alert-danger" role="alert"></div>
+<div th:if="${msg eq 'No se encontraron listar'}" th:text="${msg}" class="alert alert-danger" role="alert"></div>
+<table class="table table-sm">
+    <tr>
+        <th>#</th>
+        <th>Nombre del inventario</th>
+        <th>Numero de Serie</th>
+        <th>estado</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr th:each="inventario, i : ${listaInventario}">
+        <td th:text="${i.index+1}"></td>
+        <td th:text="${inventario.getNombre()}"></td>
+        <td th:text="${inventario.getEstado()}"></td>
+        <td><a th:href="@{'/inventario/editar?id='+ ${inventario.getId()}}" class="btn btn-primary">Edit</a></td>
+        <td><a th:href="@{'/inventario/eliminar?id='+ ${inventario.getId()}}" class="btn btn-danger">Delete</a></td>
+    </tr>
+</table>
+</body>
+</html>
+

@@ -21,26 +21,26 @@ public class SedeController {
 
     @GetMapping(value = "lista")
     public String listar(Model model){
-
+        return "";
     }
 
     @GetMapping(value = "crear")
     public String crear() {
-
+        return "";
     }
 
     @GetMapping(value = "editar")
     public String editar(Model model, @RequestParam("id") String id) {
-
+        return "";
     }
 
     @PostMapping(value = "guardar")
     public String guardar(Sede sede) {
-
+        return "";
     }
 
     @GetMapping(value = "eliminar")
     public String borrar(@RequestParam("id") String id) {
-
+        return "";
     }
 }
