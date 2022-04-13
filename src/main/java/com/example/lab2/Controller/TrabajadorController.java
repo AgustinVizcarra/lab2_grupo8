@@ -54,7 +54,7 @@ public class TrabajadorController {
         }
     }
     @PostMapping(value = "guardar")
-    public String guardar(Trabajador trabajador, RedirectAttributes redirectAttributes) {
+    public String guardar(Trabajador trabajador) {
         System.out.println(trabajador.getNombres());
         System.out.println(trabajador.getApellidos());
 
@@ -70,9 +70,9 @@ public class TrabajadorController {
                     trabajador_guardar.setIdsede(trabajador.getIdsede());
 
                     trabajadorRepository.save(trabajador_guardar);
-                    System.out.println("se edito exitosamente la distribuidora exitosamente");
+                    System.out.println("se edito exitosamente el trabajador exitosamente");
                 } else {
-                    System.out.println("No se encontro la distribuidora :(");
+                    System.out.println("No se encontro El trabajador :(");
                 }
             }catch (Exception e){
                 System.out.println("Ingreso un ID invalido");

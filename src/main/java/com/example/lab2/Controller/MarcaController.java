@@ -71,7 +71,7 @@ public class MarcaController {
             System.out.println("Se guardo exitosamente la Marca");
         }
 
-        return "redirect:/trabajador/lista";
+        return "redirect:/marca/lista";
     }
 
     @GetMapping(value = "borrar")
@@ -81,6 +81,6 @@ public class MarcaController {
         if (optionalMarca.isPresent()) {
             marcaRepository.deleteById(id);
         }
-        return "redirect:/trabajador/lista";
+        return "redirect:/marca/lista";
     }
 }
