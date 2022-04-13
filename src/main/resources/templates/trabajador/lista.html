@@ -20,6 +20,7 @@
         </nav>
 
         <h2>Lista de Trabajadores</h2>
+    <div class="container-fluid">
         <a class="btn btn-primary mt-4 mb-4" th:href="@{/trabajador/nuevo}">Nuevo Trabajador</a>
 
         <div th:if="${msgSave != null}" th:text="${msgSave}" class="alert alert-success" role="alert"></div>
@@ -46,5 +47,6 @@
                 <td><a th:href="@{'/trabajador/borrar?id='+ ${Trabajador.getId()}}" class="btn btn-danger">Borrar</a></td>
             </tr>
         </table>
+    </div>
     </body>
 </html>

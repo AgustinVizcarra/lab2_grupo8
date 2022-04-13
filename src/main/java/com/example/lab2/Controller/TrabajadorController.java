@@ -28,10 +28,9 @@ public class TrabajadorController {
         model.addAttribute("lista",trabajadorLista);
         System.out.println(trabajadorLista);
         return "trabajador/lista";
-
     }
 
-    @GetMapping({"crear"})
+    @GetMapping({"nuevo"})
     public String crear() {
         return "trabajador/nuevo";
     }
@@ -50,12 +49,38 @@ public class TrabajadorController {
     }
     @PostMapping(value = "guardar")
     public String guardar(Trabajador trabajador, RedirectAttributes redirectAttributes) {
-        this.trabajadorRepository.save(trabajador);
-        redirectAttributes.addFlashAttribute("msg", "Se ha creado un nuevo Trabajador");
+        System.out.println(trabajador.getNombres());
+        System.out.println(trabajador.getApellidos());
+
+        if(trabajador.getId()!=null){
+            try {
+                Optional<Trabajador> opt = trabajadorRepository.findById(trabajador.getId());
+                if (opt.isPresent()) {
+                    Trabajador trabajador_guardar = opt.get();
+                    trabajador_guardar.setId(trabajador.getId());
+                    trabajador_guardar.setCorreo(trabajador.getCorreo());
+                    trabajador_guardar.setNombres(trabajador.getNombres());
+                    trabajador_guardar.setApellidos(trabajador.getApellidos());
+                    trabajador_guardar.setIdsede(trabajador.getIdsede());
+
+                    trabajadorRepository.save(trabajador_guardar);
+                    System.out.println("se edito exitosamente la distribuidora exitosamente");
+                } else {
+                    System.out.println("No se encontro la distribuidora :(");
+                }
+            }catch (Exception e){
+                System.out.println("Ingreso un ID invalido");
+            }
+        }else{
+            //no tiene id
+            trabajadorRepository.save(trabajador);
+            System.out.println("Se guardo exitosamente el Trabajador");
+        }
+
         return "redirect:/trabajador/lista";
     }
 
-    @GetMapping(value = "eliminar")
+    @GetMapping(value = "borrar")
     public String borrar(@RequestParam("id") String id) {
         Optional<Trabajador> optionalTrabajador = trabajadorRepository.findById(id);
 
