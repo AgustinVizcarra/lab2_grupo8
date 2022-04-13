@@ -1,6 +1,7 @@
 package com.example.lab2.Controller;
 
 import com.example.lab2.Entity.Sede;
+import com.example.lab2.Entity.Trabajador;
 import com.example.lab2.Repository.SedeRepository;
 import com.example.lab2.Repository.TrabajadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +32,9 @@ public class SedeController {
     }
 
     @GetMapping(value = "crear")
-    public String crear(Model model, Integer idsede) {
-        // * Samantha debe terminar su código, para ver que coincida *
-        // List<Trabajador> trabajadorLista = trabajadoresRepository.findTrabajadorByIdsede();
-        // model.addAttribute("trabajadorLista", trabajadorLista);
+    public String crear(Model model, String idsede) {
+        List<Trabajador> trabajadorLista = trabajadorRepository.findTrabajadorByIdsede(idsede);
+        model.addAttribute("trabajadorLista", trabajadorLista);
         return "sede/nuevo";
     }
 
