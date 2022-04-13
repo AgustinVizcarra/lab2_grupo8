@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Tipos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+</head>
+<body class="container">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse">
+        <a class="navbar-brand" href="/inventario/lista">Inventario</a>
+        <a class="navbar-brand" href="/marca/lista">Marcas</a>
+        <a class="navbar-brand" href="/tipo/lista">Tipos de equipo</a>
+        <a class="navbar-brand" href="/sede/lista">Sedes</a>
+        <a class="navbar-brand" href="/trabajador/lista">Trabajadores</a>
+    </div>
+</nav>
+<h2>Lista de Tipos</h2>
+<a class="btn btn-success mt-4 mb-4" th:href="@{/proyecto/new}">Nueva Tipo</a>
+<div th:if="${msgSave != null}" th:text="${msgSave}" class="alert alert-success" role="alert"></div>
+<div th:if="${msgEdit != null}" th:text="${msgEdit}" class="alert alert-warning" role="alert"></div>
+<div th:if="${msgDelete != null}" th:text="${msgDelete}" class="alert alert-danger" role="alert"></div>
+<table class="table table-sm">
+    <tr>
+        <th>#</th>
+        <th>Nombre de la tipo</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr th:each="tipo, info : ${tipoLista}">
+        <td th:text="${info.index+1}"></td>
+        <td th:text="${tipo.nombre}"></td>
+        <td><a th:href="@{'/tipo/editar?id='+ ${tipo.getIdtipo()}}" class="btn btn-primary">Editar</a></td>
+        <td><a th:href="@{'/tipo/borrar?id='+ ${tipo.getIdtipo()}}" class="btn btn-danger">Borrar</a></td>
+    </tr>
+</table>
+</body>
+</html>
