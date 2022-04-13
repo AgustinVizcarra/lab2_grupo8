@@ -55,45 +55,34 @@ public class TrabajadorController {
     }
 
     @PostMapping(value = "guardar")
-    public String guardar(Trabajador trabajador) {
-        System.out.println(trabajador.getIdsede());
-        System.out.println(trabajador.getNombres());
-        System.out.println(trabajador.getApellidos());
-
+    public String guardar(Trabajador trabajador, RedirectAttributes attr) {
         if(trabajadorRepository.existsById(trabajador.getId())){
-            try {
-                Optional<Trabajador> opt = trabajadorRepository.findById(trabajador.getId());
-                if (opt.isPresent()) {
-                    Trabajador trabajador_guardar = opt.get();
-                    trabajador_guardar.setId(trabajador.getId());
-                    trabajador_guardar.setCorreo(trabajador.getCorreo());
-                    trabajador_guardar.setNombres(trabajador.getNombres());
-                    trabajador_guardar.setApellidos(trabajador.getApellidos());
-                    trabajador_guardar.setIdsede(trabajador.getIdsede());
-
-                    trabajadorRepository.save(trabajador_guardar);
-                    System.out.println("se edito exitosamente el trabajador exitosamente");
-                } else {
-                    System.out.println("No se encontro El trabajador :(");
-                }
-            }catch (Exception e){
-                System.out.println("Ingreso un ID invalido");
+            Optional<Trabajador> opt = trabajadorRepository.findById(trabajador.getId());
+            if (opt.isPresent()) {
+                Trabajador trabajador_guardar = opt.get();
+                trabajador_guardar.setId(trabajador.getId());
+                trabajador_guardar.setCorreo(trabajador.getCorreo());
+                trabajador_guardar.setNombres(trabajador.getNombres());
+                trabajador_guardar.setApellidos(trabajador.getApellidos());
+                trabajador_guardar.setIdsede(trabajador.getIdsede());
+                trabajadorRepository.save(trabajador_guardar);
+                attr.addFlashAttribute("msgEdit", "Trabajador editado exitosamente");
+                return "redirect:/trabajador/lista";
             }
-            return "redirect:/trabajador/lista";
         }else{
-            //no tiene id
             trabajadorRepository.save(trabajador);
-            System.out.println("Se guardo exitosamente el Trabajador");
-            return "redirect:/trabajador/lista";
+            attr.addFlashAttribute("msgSave", "Trabajador creado exitosamente");
         }
+        return "redirect:/trabajador/lista";
     }
 
     @GetMapping(value = "borrar")
-    public String borrar(@RequestParam("id") String id) {
+    public String borrar(@RequestParam("id") String id, RedirectAttributes attr) {
         Optional<Trabajador> optionalTrabajador = trabajadorRepository.findById(id);
 
         if (optionalTrabajador.isPresent()) {
             trabajadorRepository.deleteById(id);
+            attr.addFlashAttribute("msgDelete", "Trabajador borrado exitosamente");
         }
         return "redirect:/trabajador/lista";
     }

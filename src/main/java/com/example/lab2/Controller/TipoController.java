@@ -1,5 +1,6 @@
 package com.example.lab2.Controller;
 
+import com.example.lab2.Entity.Sede;
 import com.example.lab2.Entity.Tipo;
 import com.example.lab2.Repository.TipoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,16 +51,29 @@ public class TipoController {
     @PostMapping(value = "guardar")
     public String guardar(Tipo tipo, RedirectAttributes attributes) {
         tipoRepository.save(tipo);
-        attributes.addFlashAttribute("msg", "Tipo creado exitosamente");
+        attributes.addFlashAttribute("msgSave", "Tipo creada exitosamente");
+        return "redirect:/tipo/lista";
+    }
+
+    @PostMapping("/actualizar")
+    public String actualizar(Tipo tipoForm, RedirectAttributes attr) {
+        Optional<Tipo> optTipo = tipoRepository.findById(tipoForm.getId());
+        if (optTipo.isPresent()) {
+            Tipo tipoFromDb = optTipo.get();
+            tipoFromDb.setNombre(tipoFromDb.getNombre());
+            tipoRepository.save(tipoFromDb);
+            attr.addFlashAttribute("msgEdit", "Tipo editada exitosamente");
+        }
         return "redirect:/tipo/lista";
     }
 
     @GetMapping(value = "borrar")
-    public String borrar(@RequestParam("id") Integer id) {
+    public String borrar(@RequestParam("id") Integer id, RedirectAttributes attr) {
         Optional<Tipo> optionalTipo = tipoRepository.findById(id);
 
         if (optionalTipo.isPresent()) {
             tipoRepository.deleteById(id);
+            attr.addFlashAttribute("msgDelete", "Tipo borrada exitosamente");
         }
         return "redirect:/tipo/lista";
     }

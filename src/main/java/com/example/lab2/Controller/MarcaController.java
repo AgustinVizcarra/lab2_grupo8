@@ -1,6 +1,7 @@
 package com.example.lab2.Controller;
 
 import com.example.lab2.Entity.Marca;
+import com.example.lab2.Entity.Tipo;
 import com.example.lab2.Repository.MarcaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,38 +50,31 @@ public class MarcaController {
     }
 
     @PostMapping(value = "guardar")
-    public String guardar(Marca marca) {
+    public String guardar(Marca marca, RedirectAttributes attributes) {
+        marcaRepository.save(marca);
+        attributes.addFlashAttribute("msgSave", "Marca creada exitosamente");
+        return "redirect:/marca/lista";
+    }
 
-        if (marca.getId() != null) {
-            try {
-                Optional<Marca> opt = marcaRepository.findById(marca.getId());
-                if (opt.isPresent()) {
-                    Marca marca_guardar = opt.get();
-                    marca_guardar.setNombre(marca.getNombre());
-
-                    marcaRepository.save(marca_guardar);
-                    System.out.println("se edito exitosamente la marca");
-                } else {
-                    System.out.println("No se encontro la marca :(");
-                }
-            } catch (Exception e) {
-                System.out.println("Ingreso un Nombre invalido");
-            }
-            return "redirect:/marca/lista";
-        } else {
-            //no tiene id
-            marcaRepository.save(marca);
-            System.out.println("Se guardo exitosamente la Marca");
-            return "redirect:/marca/lista";
+    @PostMapping("/actualizar")
+    public String actualizar(Marca marcaForm, RedirectAttributes attr) {
+        Optional<Marca> optMarca = marcaRepository.findById(marcaForm.getId());
+        if (optMarca.isPresent()) {
+            Marca marcaFromDb = optMarca.get();
+            marcaFromDb.setNombre(marcaFromDb.getNombre());
+            marcaRepository.save(marcaFromDb);
+            attr.addFlashAttribute("msgEdit", "Marca editada exitosamente");
         }
+        return "redirect:/marca/lista";
     }
 
     @GetMapping(value = "borrar")
-    public String borrar(@RequestParam("id") Integer id) {
+    public String borrar(@RequestParam("id") Integer id, RedirectAttributes attr) {
         Optional<Marca> optionalMarca = marcaRepository.findById(id);
 
         if (optionalMarca.isPresent()) {
             marcaRepository.deleteById(id);
+            attr.addFlashAttribute("msgDelete", "Marca borrada exitosamente");
         }
         return "redirect:/marca/lista";
     }

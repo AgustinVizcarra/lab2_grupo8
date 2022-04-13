@@ -20,18 +20,19 @@
 </nav>
 <h2>Editar sede</h2>
 <hr/>
-<form method="post" th:action="@{/sede/guardar}">
+<form method="post" th:action="@{/sede/actualizar}">
+    <input th:value="${sede.id}" name="id" type="hidden"/>
     <div class="form-row">
         <div class="col-md-8 mb-4">
             <div class="form-group">
                 <label class="small mb-1">Nombre de la sede</label>
-                <input class="form-control" name="nombreSede" id="nombreSede" type="text">
+                <input th:value="${sede.nombreSede}" class="form-control" name="nombreSede" id="nombreSede" type="text">
             </div>
         </div>
         <div class="col-md-8 mb-4">
             <div class="form-group">
                 <label class="small mb-1">Dirección de la sede</label>
-                <input class="form-control" name="direccion" id="direccion" type="text">
+                <input th:value="${sede.direccion}" class="form-control" name="direccion" id="direccion" type="text">
             </div>
         </div>
     </div>

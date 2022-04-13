@@ -20,11 +20,13 @@ import java.util.Optional;
 @RequestMapping(value = "sede")
 public class SedeController {
 
-    @Autowired SedeRepository sedeRepository;
-    @Autowired TrabajadorRepository trabajadorRepository;
+    @Autowired
+    SedeRepository sedeRepository;
+    @Autowired
+    TrabajadorRepository trabajadorRepository;
 
     @GetMapping(value = "lista")
-    public String listar(Model model){
+    public String listar(Model model) {
         List<Sede> sedeLista = sedeRepository.findAll();
         model.addAttribute("sedeLista", sedeLista);
         return "sede/lista";
@@ -53,16 +55,30 @@ public class SedeController {
     @PostMapping(value = "guardar")
     public String guardar(Sede sede, RedirectAttributes attributes) {
         sedeRepository.save(sede);
-        attributes.addFlashAttribute("msg", "Sede creada exitosamente");
+        attributes.addFlashAttribute("msgSave", "Sede creada exitosamente");
+        return "redirect:/sede/lista";
+    }
+
+    @PostMapping("/actualizar")
+    public String actualizar(Sede sedeForm, RedirectAttributes attr) {
+        Optional<Sede> optSede = sedeRepository.findById(sedeForm.getId());
+        if (optSede.isPresent()) {
+            Sede sedeFromDb = optSede.get();
+            sedeFromDb.setNombreSede(sedeFromDb.getNombreSede());
+            sedeFromDb.setDireccion(sedeFromDb.getDireccion());
+            sedeRepository.save(sedeFromDb);
+            attr.addFlashAttribute("msgEdit", "Sede editada exitosamente");
+        }
         return "redirect:/sede/lista";
     }
 
     @GetMapping(value = "borrar")
-    public String borrar(@RequestParam("id") Integer id) {
+    public String borrar(@RequestParam("id") Integer id, RedirectAttributes attr) {
         Optional<Sede> optionalSede = sedeRepository.findById(id);
 
         if (optionalSede.isPresent()) {
             sedeRepository.deleteById(id);
+            attr.addFlashAttribute("msgDelete", "Sede borrada exitosamente");
         }
         return "redirect:/sede/lista";
     }
