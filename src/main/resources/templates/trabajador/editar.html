@@ -34,16 +34,10 @@
                         <input th:value="${trabajador.nombres}" name="nombres" type="text" class="form-control" id="nombres"/>
                         <label class="small mb-1">Apellidos del trabajador</label>
                         <input th:value="${trabajador.apellidos}" name="apellidos" type="text" class="form-control" id="apellidos"/>
-
-                        <!--<label class="small mb-1">Sede</label>
-                        <input th:value="${trabajador.idsede}" name="idsede" type="text" class="form-control" id="nombreSede"/>
--->
-
-                        <div class="form-group">
-                            <label class="form-label">Sede</label>
-                            <input type="form-control" name="idsede">
-                        </div>
-
+                        <label class="small mb-1">Sede</label>
+                        <select id="sede" th:field="${trabajador.idsede}" class="form-select">
+                            <option th:each="sede:${sedeLista}" th:value="${sede.id}" th:text="${sede.nombreSede}"></option>
+                        </select>
                     </div>
                 </div>
             </div>

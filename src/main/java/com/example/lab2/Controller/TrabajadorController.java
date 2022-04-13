@@ -1,7 +1,9 @@
 package com.example.lab2.Controller;
 
+import com.example.lab2.Entity.Sede;
 import com.example.lab2.Entity.Tipo;
 import com.example.lab2.Entity.Trabajador;
+import com.example.lab2.Repository.SedeRepository;
 import com.example.lab2.Repository.TrabajadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,8 +21,8 @@ import java.util.Optional;
 @Controller
 @RequestMapping(value = "trabajador")
 public class TrabajadorController {
-    @Autowired
-    TrabajadorRepository trabajadorRepository;
+    @Autowired TrabajadorRepository trabajadorRepository;
+    @Autowired SedeRepository sedeRepository;
 
     @GetMapping(value = "lista")
     public String listar(Model model){
@@ -31,14 +33,18 @@ public class TrabajadorController {
     }
 
     @GetMapping({"nuevo"})
-    public String crear() {
+    public String crear(Model model) {
+        List<Sede> sedeLista = sedeRepository.findAll();
+        model.addAttribute("sedeLista",sedeLista);
         return "trabajador/nuevo";
     }
 
     @GetMapping(value = "editar")
     public String editar(Model model, @RequestParam("id") String id) {
-        Optional<Trabajador> optionalTrabajador = trabajadorRepository.findById(id);
+        List<Sede> sedeLista = sedeRepository.findAll();
+        model.addAttribute("sedeLista",sedeLista);
 
+        Optional<Trabajador> optionalTrabajador = trabajadorRepository.findById(id);
         if (optionalTrabajador.isPresent()) {
             Trabajador trabajador= optionalTrabajador.get();
             model.addAttribute("trabajador", trabajador);

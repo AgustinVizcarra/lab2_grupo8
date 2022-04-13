@@ -24,7 +24,7 @@
 
             <div class="form-group">
                 <label class="form-label">DNI del trabajador</label>
-                <input type="form-control" name="dni">
+                <input type="form-control" name="id">
             </div>
             <div class="form-group">
                 <label class="form-label">Correo del trabajador</label>
@@ -40,7 +40,9 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Sede</label>
-                <input type="form-control" name="idsede">
+                <select id="sede" name="sede" class="form-select">
+                    <option th:each="sede:${sedeLista}" th:value="${sede.id}" th:text="${sede.nombreSede}"></option>
+                </select>
             </div>
 
             <div class="form-group mt-4">
