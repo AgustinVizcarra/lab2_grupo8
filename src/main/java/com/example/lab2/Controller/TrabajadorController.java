@@ -53,12 +53,14 @@ public class TrabajadorController {
             return "redirect:/trabajador/lista";
         }
     }
+
     @PostMapping(value = "guardar")
     public String guardar(Trabajador trabajador) {
+        System.out.println(trabajador.getIdsede());
         System.out.println(trabajador.getNombres());
         System.out.println(trabajador.getApellidos());
 
-        if(trabajador.getId()!=null){
+        if(trabajadorRepository.existsById(trabajador.getId())){
             try {
                 Optional<Trabajador> opt = trabajadorRepository.findById(trabajador.getId());
                 if (opt.isPresent()) {

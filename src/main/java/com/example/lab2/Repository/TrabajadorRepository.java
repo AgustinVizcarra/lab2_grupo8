@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface TrabajadorRepository extends JpaRepository<Trabajador, String> {
 
+    boolean existsById(String s);
+
     @Query(value = "select * from trabajadores where idsede = ?1", nativeQuery=true)
     List<Trabajador> findTrabajadorByIdsede(Sede idsede);
-
 }
