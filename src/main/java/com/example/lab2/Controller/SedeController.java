@@ -20,9 +20,8 @@ import java.util.Optional;
 @RequestMapping(value = "sede")
 public class SedeController {
 
-    @Autowired
-    SedeRepository sedeRepository;
-    TrabajadorRepository trabajadorRepository;
+    @Autowired SedeRepository sedeRepository;
+    @Autowired TrabajadorRepository trabajadorRepository;
 
     @GetMapping(value = "lista")
     public String listar(Model model){
@@ -31,17 +30,17 @@ public class SedeController {
         return "sede/lista";
     }
 
-    @GetMapping(value = "crear")
-    public String crear(Model model, String idsede) {
-        List<Trabajador> trabajadorLista = trabajadorRepository.findTrabajadorByIdsede(idsede);
-        model.addAttribute("trabajadorLista", trabajadorLista);
+    @GetMapping(value = "nuevo")
+    public String crear() {
         return "sede/nuevo";
     }
 
     @GetMapping(value = "editar")
-    public String editar(Model model, @RequestParam("id") Integer id) {
-        Optional<Sede> optionalSede = sedeRepository.findById(id);
+    public String editar(Model model, @RequestParam("id") Integer id, Sede idsede) {
+        List<Trabajador> trabajadorLista = trabajadorRepository.findTrabajadorByIdsede(idsede);
+        model.addAttribute("trabajadorLista", trabajadorLista);
 
+        Optional<Sede> optionalSede = sedeRepository.findById(id);
         if (optionalSede.isPresent()) {
             Sede sede = optionalSede.get();
             model.addAttribute("sede", sede);
@@ -58,7 +57,7 @@ public class SedeController {
         return "redirect:/sede/lista";
     }
 
-    @GetMapping(value = "eliminar")
+    @GetMapping(value = "borrar")
     public String borrar(@RequestParam("id") Integer id) {
         Optional<Sede> optionalSede = sedeRepository.findById(id);
 

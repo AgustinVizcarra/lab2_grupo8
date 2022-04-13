@@ -52,6 +52,7 @@
     </tr>
     <tr th:each="trabajador, info : ${trabajadorLista}">
         <td th:text="${info.index+1}"></td>
+        <td th:text="${trabajador.id}"></td> <!-- DNI del trabajador -->
         <td th:text="${trabajador.correo}"></td>
         <td th:text="${trabajador.nombres}"></td>
         <td th:text="${trabajador.apellidos}"></td>

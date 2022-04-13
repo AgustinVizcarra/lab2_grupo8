@@ -29,7 +29,7 @@ public class TipoController {
         return "tipo/lista";
     }
 
-    @GetMapping(value = "crear")
+    @GetMapping(value = "nuevo")
     public String crear() {
         return "tipo/nuevo";
     }
@@ -54,7 +54,7 @@ public class TipoController {
         return "redirect:/tipo/lista";
     }
 
-    @GetMapping(value = "eliminar")
+    @GetMapping(value = "borrar")
     public String borrar(@RequestParam("id") Integer id) {
         Optional<Tipo> optionalTipo = tipoRepository.findById(id);
 

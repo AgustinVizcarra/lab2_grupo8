@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
 <head>
     <meta charset="UTF-8">
     <title>Lista de Tipos</title>
@@ -19,7 +19,7 @@
     </div>
 </nav>
 <h2>Lista de Tipos</h2>
-<a class="btn btn-success mt-4 mb-4" th:href="@{/proyecto/new}">Nueva Tipo</a>
+<a class="btn btn-success mt-4 mb-4" th:href="@{/tipo/nuevo}">Nueva Tipo</a>
 <div th:if="${msgSave != null}" th:text="${msgSave}" class="alert alert-success" role="alert"></div>
 <div th:if="${msgEdit != null}" th:text="${msgEdit}" class="alert alert-warning" role="alert"></div>
 <div th:if="${msgDelete != null}" th:text="${msgDelete}" class="alert alert-danger" role="alert"></div>
@@ -33,8 +33,8 @@
     <tr th:each="tipo, info : ${tipoLista}">
         <td th:text="${info.index+1}"></td>
         <td th:text="${tipo.nombre}"></td>
-        <td><a th:href="@{'/tipo/editar?id='+ ${tipo.getIdtipo()}}" class="btn btn-primary">Editar</a></td>
-        <td><a th:href="@{'/tipo/borrar?id='+ ${tipo.getIdtipo()}}" class="btn btn-danger">Borrar</a></td>
+        <td><a th:href="@{'/tipo/editar?id='+ ${tipo.getId()}}" class="btn btn-primary">Editar</a></td>
+        <td><a th:href="@{'/tipo/borrar?id='+ ${tipo.getId()}}" class="btn btn-danger">Borrar</a></td>
     </tr>
 </table>
 </body>
