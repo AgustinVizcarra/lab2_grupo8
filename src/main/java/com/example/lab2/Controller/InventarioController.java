@@ -50,17 +50,58 @@ public class InventarioController {
 
     @GetMapping(value = "editar")
     public String editar(Model model, @RequestParam("id") String id) {
-
+        model.addAttribute("listaMarcas",marcaRepository.findAll());
+        model.addAttribute("listaTipos",tipoRepository.findAll());
+        model.addAttribute("listaSedes",sedeRepository.findAll());
+        try{
+            Optional<Inventario> inventario = inventarioRepository.findById(Integer.parseInt(id));
+            if(inventario.isPresent()){
+                model.addAttribute("inventario",inventario.get());
+            }else{
+                System.out.println("No se ha encontrado un inventario con ese id");
+            }
+        }catch(Exception e){
+            System.out.println("Ha ingresado un id invalido");
+        }
         return "/inventario/editarInventario";
     }
 
     @PostMapping(value = "guardar")
     public String guardar(Inventario inventario, RedirectAttributes attr) {
+        try{
+            Optional<Inventario> opt = inventarioRepository.findById(inventario.getId());
+            if(opt.isPresent()) {
+                Inventario inventario_guardar = opt.get();
+                inventario_guardar.setEstado(inventario.getEstado());
+                inventario_guardar.setIdmarca(inventario.getIdmarca());
+                inventario_guardar.setIdtipo(inventario.getIdtipo());
+                inventario_guardar.setNumeroserie(inventario.getNumeroserie());
+                inventario_guardar.setNombre(inventario.getNombre());
+                inventario_guardar.setIdsede(inventario.getIdsede());
+                //finalmente se guarda
+                inventarioRepository.save(inventario_guardar);
+                System.out.println("El inventario se edito exitosamente");
+                attr.addFlashAttribute("msgEdit","El inventario se edito exitosamente");
+            }else{
+                inventarioRepository.save(inventario);
+                System.out.println("El inventario se guardo exitosamente");
+                attr.addFlashAttribute("msgSave","El inventario se creo exitosamente");
+            }
+        }catch (Exception e){
+            System.out.println("Se envio un id invalido en el cuerpo de inventario");
+        }
         return "redirect:/inventario/listarInventario";
     }
 
     @GetMapping(value = "eliminar")
     public String borrar(@RequestParam("id") String id, RedirectAttributes attr) {
+        try{
+            inventarioRepository.deleteById(Integer.parseInt(id));
+            System.out.println("El inventario se ha eliminado exitosamente");
+            attr.addFlashAttribute("msgDelete","El inventario se ha eliminado exitosamente");
+        }catch (Exception e){
+            System.out.println("Se ha ingresado un id invalido");
+        }
         return "redirect:/inventario/listarInventario";
     }
 }
