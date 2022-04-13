@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Nuevo Trabajador</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse">
+                <a class="navbar-brand" href="/inventario/lista">Inventario</a>
+                <a class="navbar-brand" href="/marca/lista">Marcas</a>
+                <a class="navbar-brand" href="/tipo/lista">Tipos de equipo</a>
+                <a class="navbar-brand" href="/sede/lista">Sedes</a>
+                <a class="navbar-brand" href="/trabajador/lista">Trabajadores</a>
+            </div>
+        </nav>
+        <h2>Nuevo Trabajador</h2>
+        <hr/>
+        <form method="post" th:action="@{/trabajador/guardar}">
+            <div class="form-group">
+                <label class="form-label">DNI del trabajador</label>
+                <input type="form-control" name="id">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Correo del trabajador</label>
+                <input type="form-control" name="correo">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Nombre del trabajador</label>
+                <input type="form-control" name="nombres">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Apellidos del trabajador</label>
+                <input type="form-control" name="apellidos">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Sede</label>
+                <select id="idsede" name="idsede" class="form-select">
+                    <option th:each="sede:${sedeLista}" th:value="${sede.id}" th:text="${sede.nombreSede}"></option>
+                </select>
+            </div>
+
+            <div class="form-group mt-4">
+                <a th:href="@{/trabajador/lista}" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </div>
+        </form>
+    </body>
+</html>
