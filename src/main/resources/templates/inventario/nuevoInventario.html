@@ -18,30 +18,65 @@
         <a class="navbar-brand" th:href="@{/trabajador/lista}">Trabajadores</a>
     </div>
 </nav>
-<h2>Nuevo Proyecto</h2>
+<h2>Nuevo Inventario</h2>
 <hr/>
-<form method="post" th:action="@{/proyecto/save}">
+<form method="post" th:action="@{/inventario/guardar}">
     <div class="form-row">
         <div class="col-md-8 mb-4">
             <div class="form-group">
-                <label class="small mb-1">Nombre del Proyecto</label>
-                <input class="form-control" name="nombreProyecto" id="nombreProyecto" type="text">
+                <label class="small mb-1">Nombre del inventario</label>
+                <input class="form-control" name="nombre">
             </div>
         </div>
         <div class="col-md-8 mb-4">
             <div class="form-group">
-                <label class="small mb-1">Usuario Responsable</label>
-                <select id="usuario_owner" name="usuario_owner" class="form-control">
-                    <option th:each="user: ${listaUsuarios}"
-                            th:value="${user.getCorreo()}"
-                            th:text="${user.getNombres()+ ' ' +user.getApellidos()}"></option>
-
+                <label class="small mb-1">Numero de Serie</label>
+                <input class="form-control" name="numeroserie">
+            </div>
+        </div>
+        <div class="col-md-8 mb-4">
+            <div class="form-group">
+                <label class="small mb-1">Sede</label>
+                <select name="idsede" class="form-control">
+                    <option th:each="sede: ${listaSedes}"
+                            th:value="${sede.getId()}"
+                            th:text="${sede.getNombreSede()}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-8 mb-4">
+            <div class="form-group">
+                <label class="small mb-1">Marca</label>
+                <select name="idmarca" class="form-control">
+                    <option th:each="marca: ${listaMarcas}"
+                            th:value="${marca.getId()}"
+                            th:text="${marca.getNombre()}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-8 mb-4">
+            <div class="form-group">
+                <label class="small mb-1">Tipo de Equipo</label>
+                <select name="idtipo" class="form-control">
+                    <option th:each="tipo: ${listaTipos}"
+                            th:value="${tipo.getId()}"
+                            th:text="${tipo.getNombre()}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-8 mb-4">
+            <div class="form-group">
+                <label class="small mb-1">Estado</label>
+                <select name="estado" class="form-control">
+                    <option value="almacen">Almacen</option>
+                    <option value="pedido">Pedido</option>
+                    <option value="vendido">Vendido</option>
                 </select>
             </div>
         </div>
     </div>
     <div class="form-group mt-4">
-        <a th:href="@{/proyecto/listar}" class="btn btn-danger">Cancelar</a>
+        <a th:href="@{/inventario/lista}" class="btn btn-danger">Cancelar</a>
         <button type="submit" class="btn btn-primary">Registrar</button>
     </div>
 </form>

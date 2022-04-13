@@ -10,7 +10,7 @@ public class Sede {
     @Column(name = "idsede", nullable = false)
     private Integer id;
 
-    @Column(name = "nombreSede", length = 45)
+    @Column(name = "nombresede", length = 45)
     private String nombreSede;
 
     @Column(name = "direccion", length = 45)
