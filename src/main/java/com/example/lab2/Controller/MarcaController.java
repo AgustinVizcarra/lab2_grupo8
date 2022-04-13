@@ -61,7 +61,7 @@ public class MarcaController {
         Optional<Marca> optMarca = marcaRepository.findById(marcaForm.getId());
         if (optMarca.isPresent()) {
             Marca marcaFromDb = optMarca.get();
-            marcaFromDb.setNombre(marcaFromDb.getNombre());
+            marcaFromDb.setNombre(marcaForm.getNombre());
             marcaRepository.save(marcaFromDb);
             attr.addFlashAttribute("msgEdit", "Marca editada exitosamente");
         }

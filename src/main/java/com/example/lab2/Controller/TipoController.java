@@ -60,7 +60,7 @@ public class TipoController {
         Optional<Tipo> optTipo = tipoRepository.findById(tipoForm.getId());
         if (optTipo.isPresent()) {
             Tipo tipoFromDb = optTipo.get();
-            tipoFromDb.setNombre(tipoFromDb.getNombre());
+            tipoFromDb.setNombre(tipoForm.getNombre());
             tipoRepository.save(tipoFromDb);
             attr.addFlashAttribute("msgEdit", "Tipo editada exitosamente");
         }

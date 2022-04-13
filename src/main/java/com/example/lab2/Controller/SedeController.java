@@ -64,8 +64,8 @@ public class SedeController {
         Optional<Sede> optSede = sedeRepository.findById(sedeForm.getId());
         if (optSede.isPresent()) {
             Sede sedeFromDb = optSede.get();
-            sedeFromDb.setNombreSede(sedeFromDb.getNombreSede());
-            sedeFromDb.setDireccion(sedeFromDb.getDireccion());
+            sedeFromDb.setNombreSede(sedeForm.getNombreSede());
+            sedeFromDb.setDireccion(sedeForm.getDireccion());
             sedeRepository.save(sedeFromDb);
             attr.addFlashAttribute("msgEdit", "Sede editada exitosamente");
         }
