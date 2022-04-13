@@ -56,6 +56,7 @@ public class TrabajadorController {
 
     @PostMapping(value = "guardar")
     public String guardar(Trabajador trabajador, RedirectAttributes attr) {
+        System.out.println(trabajador.getId());
         if(trabajadorRepository.existsById(trabajador.getId())){
             Optional<Trabajador> opt = trabajadorRepository.findById(trabajador.getId());
             if (opt.isPresent()) {

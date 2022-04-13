@@ -26,8 +26,7 @@
             <div class="form-row">
                 <div class="col-md-8 mb-4">
                     <div class="form-group">
-                        <label class="small mb-1">DNI del Trabajador</label>
-                        <input th:value="${trabajador.id}" name="dni" type="text" class="form-control" id="dni"/>
+
                         <label class="small mb-1">Correo del Trabajador</label>
                         <input th:value="${trabajador.correo}" name="correo" type="text" class="form-control" id="correo"/>
                         <label class="small mb-1">Nombre del trabajador</label>
@@ -43,7 +42,7 @@
             </div>
             <div class="form-group mt-4">
                 <a th:href="@{/trabajador/lista}" class="btn btn-danger">Cancelar</a>
-                <button type="submit" class="btn btn-primary">Registrar</button>
+                <button type="submit" class="btn btn-primary">Actualizar</button>
             </div>
         </form>
     </body>
