@@ -58,20 +58,20 @@ public class MarcaController {
                     marca_guardar.setNombre(marca.getNombre());
 
                     marcaRepository.save(marca_guardar);
-                    System.out.println("se edito exitosamente la marca exitosamente");
+                    System.out.println("se edito exitosamente la marca");
                 } else {
                     System.out.println("No se encontro la marca :(");
                 }
             } catch (Exception e) {
                 System.out.println("Ingreso un Nombre invalido");
             }
+            return "redirect:/marca/lista";
         } else {
             //no tiene id
             marcaRepository.save(marca);
             System.out.println("Se guardo exitosamente la Marca");
+            return "redirect:/marca/lista";
         }
-
-        return "redirect:/marca/lista";
     }
 
     @GetMapping(value = "borrar")

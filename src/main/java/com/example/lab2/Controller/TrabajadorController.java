@@ -27,7 +27,7 @@ public class TrabajadorController {
     @GetMapping(value = "lista")
     public String listar(Model model){
         List<Trabajador> trabajadorLista = trabajadorRepository.findAll();
-        model.addAttribute("lista",trabajadorLista);
+        model.addAttribute("trabajadorLista",trabajadorLista);
         System.out.println(trabajadorLista);
         return "trabajador/lista";
     }
@@ -77,13 +77,13 @@ public class TrabajadorController {
             }catch (Exception e){
                 System.out.println("Ingreso un ID invalido");
             }
+            return "redirect:/trabajador/lista";
         }else{
             //no tiene id
             trabajadorRepository.save(trabajador);
             System.out.println("Se guardo exitosamente el Trabajador");
+            return "redirect:/trabajador/lista";
         }
-
-        return "redirect:/trabajador/lista";
     }
 
     @GetMapping(value = "borrar")

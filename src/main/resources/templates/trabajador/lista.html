@@ -36,7 +36,7 @@
                 <th>Apellidos del Trabajador</th>
             </tr>
             </thead>
-            <tr th:each="Trabajador, info : ${lista}">
+            <tr th:each="Trabajador, info : ${trabajadorLista}">
                 <td th:text="${info.index+1}"></td>
                 <td th:text="${Trabajador.id}"></td>
 
