@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-import java.util.Optional;
-
 @Controller
 @RequestMapping(value = "inventario")
 public class InventarioController {
@@ -22,27 +19,27 @@ public class InventarioController {
 
 
     @GetMapping(value = "lista")
-    public String listar(Model model){
+    public void listar(Model model){
 
-    }
+    };
 
     @GetMapping(value = "crear")
-    public String crear() {
+    public void crear() {
 
-    }
+    };
 
     @GetMapping(value = "editar")
-    public String editar(Model model, @RequestParam("id") String id) {
+    public void editar(Model model, @RequestParam("id") String id) {
 
-    }
+    };
 
     @PostMapping(value = "guardar")
-    public String guardar(Inventario inventario) {
+    public void guardar(Inventario inventario) {
 
-    }
+    };
 
     @GetMapping(value = "eliminar")
-    public String borrar(@RequestParam("id") String id) {
+    public void borrar(@RequestParam("id") String id) {
 
-    }
+    };
 }

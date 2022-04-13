@@ -11,16 +11,22 @@
     <body class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="collapse navbar-collapse">
-
+                <a class="navbar-brand" href="/inventario/lista">Inventario</a>
+                <a class="navbar-brand" href="/marca/lista">Marcas</a>
+                <a class="navbar-brand" href="/tipo/lista">Tipos de equipo</a>
+                <a class="navbar-brand" href="/sede/lista">Sedes</a>
                 <a class="navbar-brand" href="/trabajador/lista">Trabajadores</a>
             </div>
         </nav>
+
         <h2>Lista de Trabajadores</h2>
-        <a class="btn btn-success mt-4 mb-4" th:href="@{/trabajador/nuevo}">Nuevo Trabajador</a>
+        <a class="btn btn-primary mt-4 mb-4" th:href="@{/trabajador/nuevo}">Nuevo Trabajador</a>
+
         <div th:if="${msgSave != null}" th:text="${msgSave}" class="alert alert-success" role="alert"></div>
         <div th:if="${msgEdit != null}" th:text="${msgEdit}" class="alert alert-warning" role="alert"></div>
         <div th:if="${msgDelete != null}" th:text="${msgDelete}" class="alert alert-danger" role="alert"></div>
-        <table class="table table-sm">
+        <table class="table table-striped">
+            <thead>
             <tr>
                 <th>#</th>
                 <th>DNI del Trabajador</th>
@@ -28,14 +34,16 @@
                 <th>Nombre del Trabajador</th>
                 <th>Apellidos del Trabajador</th>
             </tr>
-            <tr th:each="trabajador, var : ${listaTrabajador}">
+            </thead>
+            <tr th:each="Trabajador, info : ${lista}">
                 <td th:text="${info.index+1}"></td>
-                <td th:text="${trabajador.getId()}"></td>
-                <td th:text="${trabajador.getCorreo()}"></td>
-                <td th:text="${trabajador.getNombres()}"></td>
-                <td th:text="${trabajador.getApellidos()}"></td>
-                <td><a th:href="@{'/trabajador/editar?id='+ ${trabajador.getId()}}" class="btn btn-primary">Editar</a></td>
-                <td><a th:href="@{'/trabajador/borrar?id='+ ${trabajador.getId()}}" class="btn btn-danger">Borrar</a></td>
+                <td th:text="${Trabajador.id}"></td>
+
+                <td th:text="${Trabajador.correo}"></td>
+                <td th:text="${Trabajador.nombres}"></td>
+                <td th:text="${Trabajador.apellidos}"></td>
+                <td><a th:href="@{'/trabajador/editar?id='+ ${Trabajador.getId()}}" class="btn btn-primary">Editar</a></td>
+                <td><a th:href="@{'/trabajador/borrar?id='+ ${Trabajador.getId()}}" class="btn btn-danger">Borrar</a></td>
             </tr>
         </table>
     </body>

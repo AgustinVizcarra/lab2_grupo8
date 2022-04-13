@@ -19,27 +19,27 @@ public class MarcaController {
 
 
     @GetMapping(value = "lista")
-    public String listar(Model model){
+    public void listar(Model model){
 
-    }
+    };
 
     @GetMapping(value = "crear")
-    public String crear() {
+    public void crear() {
 
-    }
+    };
 
     @GetMapping(value = "editar")
-    public String editar(Model model, @RequestParam("id") String id) {
+    public void editar(Model model, @RequestParam("id") String id) {
 
-    }
+    };
 
     @PostMapping(value = "guardar")
-    public String guardar(Marca marca) {
+    public void guardar(Marca marca) {
 
-    }
+    };
 
     @GetMapping(value = "eliminar")
-    public String borrar(@RequestParam("id") String id) {
+    public void borrar(@RequestParam("id") String id) {
 
-    }
+    };
 }
