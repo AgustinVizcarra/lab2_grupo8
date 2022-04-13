@@ -35,7 +35,7 @@ public class MarcaController {
     }
 
     @GetMapping(value = "editar")
-    public String editar(Model model, @RequestParam("id") String id) {
+    public String editar(Model model, @RequestParam("id") Integer id) {
         Optional<Marca> optionalMarca = marcaRepository.findById(id);
 
         if (optionalMarca.isPresent()) {
@@ -75,7 +75,7 @@ public class MarcaController {
     }
 
     @GetMapping(value = "borrar")
-    public String borrar(@RequestParam("id") String id) {
+    public String borrar(@RequestParam("id") Integer id) {
         Optional<Marca> optionalMarca = marcaRepository.findById(id);
 
         if (optionalMarca.isPresent()) {
